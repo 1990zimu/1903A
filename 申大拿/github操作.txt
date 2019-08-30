@@ -1,0 +1,35 @@
+GitHub 
+	账号	18910221653@163.com
+	密码	zimu123456
+GitHub仓库地址
+	git clone https://github.com/1990zimu/1903A.git
+一、本地没有
+1、将远程仓库克隆到本地
+	命令：git clone https://github.com/1990zimu/1903A.git
+2、添加新内容
+	  创建/删除/修改 文件夹
+		文件夹中增/删/改/文件
+3、将新增的内容添加到本地版本库
+	git add 	*
+	git commit -m “”
+4、确定远程连接地址
+	git remote add origin https://github.com/1990zimu/1903A.git
+	如果有 fatal:remote origin already exists 错误：
+		1)删除远程连接地址 
+			git remote rm origin
+		2)然后再执行
+			git remote add origin https://github.com/1990zimu/1903A.git
+5、将远程最新版本库同步到本地
+	git pull
+6、将本地仓库同步到远程
+	git push -u origin master
+二、已有仓库
+	1、增删改 文件
+	2、添加到本地版本库
+	3、推送到远程版本库
+
+
+如果 fatal: unable to access 'https://github.com/1990zimu/1903A.git/': The requested URL returned error: 403
+解决方案：
+git config --system --unset credential.helper
+之后再进行git操作时，弹出用户名密码窗口，输入即可
