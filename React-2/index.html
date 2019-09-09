@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/babel.min.js"></script>
+    <script src="./jquery.js"></script>
+    <style>
+      ul{
+          list-style: none
+      }
+      .goods{
+          display: flex;
+          align-items: center
+      }
+      .goods_img{
+          display: flex;
+          align-items: center
+      }
+      .shop{
+          margin-bottom: 20px;
+      }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script type="text/babel">
+         class Show extends React.Component{
+             constructor(props){
+                 super(props);
+                 this.state={}
+             }
+             componentWillMount(){
+                 console.log('自己执行')
+                  $.get('./data.json',res=>{
+                      console.log('获取的数据',res)
+                      this.setState({
+                          list:res
+                      })
+                  })
+             }
+               
+            render(){
+                 let list =this.state.list;
+                 console.log("状态里的list",list)
+                 let uls;
+                 if(list){
+                   uls=list.map((k,index)=>
+                       <div key={index} className='shop'>
+                          <input type="checkbox" /> 
+                                {k.shop_name}
+                                <Goods   goods={k.shop_goods}/>
+                        
+                         
+                        </div>
+                   )
+                 }
+
+
+                 return(
+                     <div>
+                        {uls}
+                    </div>
+                 )
+             }
+         }
+        class Goods extends React.Component{
+            constructor(props){
+                 super(props);
+                 this.state={}
+             }
+
+             render(){
+                 let arr=this.props.goods;
+                 console.log(arr) //父亲传过来的商品信息
+                 let goods=arr.map((item,index)=>
+                   <div key={index} className="goods">
+                    <div className='goods_img'>
+                     <input type="checkbox" /> 
+                      <img src={item.goods_img} />
+                    </div>
+                         <ul>
+                            <li>{item.goods_name} </li>
+                            <li>{item.goods_color} </li> 
+                            <li>{item.goods_price} </li>
+                        </ul>
+                    </div>
+                 )
+
+                 return( 
+                     <div className='shop_goo'>
+                      {goods}
+                   </div>
+                 )
+             }
+        }
+
+         ReactDOM.render(
+             <Show />,
+             document.getElementById('box')
+         )
+    </script>
+</body>
+</html>
